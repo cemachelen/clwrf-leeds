@@ -117,6 +117,10 @@ function build_wrf() {
   fi
   # if fails try fixing known bug !?!
   # sed -i "s|-lfl||g" chem/KPP/kpp/kpp-2.1/src/Makefile
+  #
+  # FORCE CLwrf complilation
+  #
+  sed -i "s| -DNETCDF | -DNETCDF -DCLWRFXTR -DCLWRFGHG -DCLWRFHVY |g" configure.wrf
   ./compile em_real >& log.compile_wrf-chem
   echo "configuring and compinging WPS"
   cd ../WPS-4.2

@@ -13,6 +13,11 @@
 unset MP_PE_AFFINITY
 export MP_TASK_AFFINITY=cpu
 
+## ClWRF extra files
+
+# Copy a set file
+cp -p $WRFdir/run/CAMtr_volume_mixing_ratio.RCP4.5 .
+
 # -----------------------------------------------------------------------------
 # 1) Meteo spinup
 # -----------------------------------------------------------------------------

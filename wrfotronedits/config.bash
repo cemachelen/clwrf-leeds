@@ -4,45 +4,57 @@
 # ------------------------------------------------------------------------------
 # code
 # ------------------------------------------------------------------------------
-module load intel/19.0.4 openmpi/3.1.4 netcdf/4.6.3 ClWRFchem/4.2 ncl/6.5.0 nco/4.6.0 wrfchemconda/3.7 sge
+
+# Load in the compilers and openmpi and netcdf libaries and job sechulder
+module load intel/19.0.4 openmpi/3.1.4 netcdf/4.6.3 sge
+## Load in the version of WRF you want to use
+module load ClWRFchem/4.2
+# load in a bunch of tools require for pre and postprocessing
+module load ncl/6.5.0 nco/4.6.0 wrfchemconda/3.7
 
 version=2.1
-projectTag=simulation_ClWRFChem4.2_test
+projectTag=ClWRFChem4.2_test
 withChemistry=true
 
-# WRFotron
-chainDir=/nobackup/${USER}/WRFotron
+# WRFotron directory
+## Set this to your working copy of WRFotron this is going to pick up your edits to config.bash etc
+chainDir=/nobackup/${USER}/ClWRFotron
 
-# WPS
+# These directory paths do not need editing for different compiled versions of
+# WRFChem as they just host run time files not executables
+# -----------------------------------------------------------------------------
+
+# WPS - this points to a load of files to be copied over not the executables
 WPSdir=/nobackup/WRFChem/WPS4.2
 
-# WRFChem
+# WRFChem - this points to a load of files to be copied over not the executables
 WRFdir=/nobackup/WRFChem/WRFChem4.2
 
-# WRFMeteo
+# WRFMeteo - this points to a load of files to be copied over not the executables
 WRFmeteodir=/nobackup/WRFChem/WRFMeteo4.2
 
 # ------------------------------------------------------------------------------
-# preprocessors
+# preprocessors -
 # ------------------------------------------------------------------------------
-# MEGAN
+# MEGAN - this points to a load of files to be copied over not the executables
 WRFMEGANdir=/nobackup/WRFChem/megan
 
-# MOZBC
+# MOZBC - this points to a load of files to be copied over not the executables
 WRFMOZARTdir=/nobackup/WRFChem/mozbc
 
-# WESLEY/EXOCOLDENS
+# WESLEY/EXOCOLDENS - this points to a load of files to be copied over not the executables
 WRFmztoolsdir=/nobackup/WRFChem/wes-coldens
 
-# ANTHRO_EMISS
+# ANTHRO_EMISS - this points to a load of files to be copied over not the executables
 WRFanthrodir=/nobackup/WRFChem/anthro_emis
 
-# FIRE_EMISS
+# FIRE_EMISS - this points to a load of files to be copied over not the executables
 WRFfiredir=/nobackup/WRFChem/finn/src
 
 # ------------------------------------------------------------------------------
 # input data
 # ------------------------------------------------------------------------------
+
 # initial and boundary meteorological data
 metDir=/nobackup/WRFChem/initial_boundary_meteo_ecmwf
 metInc=6
@@ -76,7 +88,7 @@ fireInpFile=fire_emis.mozm.inp
 WRFemitdir=/nobackup/WRFChem/WRF_UoM_EMIT
 
 # ------------------------------------------------------------------------------
-# simulation directories
+# simulation directories (will not need likely need editing)
 # ------------------------------------------------------------------------------
 # run folder
 workDir=/nobackup/${USER}/${projectTag}/run
@@ -94,7 +106,7 @@ removeRunDir=false
 pyPpScript=${chainDir}/postprocessing.py
 
 # ------------------------------------------------------------------------------
-# HPC settings
+# HPC settings check the size of your simulation! is this over kill?
 # ------------------------------------------------------------------------------
 # number of cores to run with for each stage
 nprocPre=1
