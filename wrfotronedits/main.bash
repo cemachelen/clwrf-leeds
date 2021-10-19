@@ -3,9 +3,9 @@
 # WRFOTRON
 # ------------------------------------------------------------------------------
 #$ -cwd -V
-#$ -l h_rt=48:00:00
+#$ -l h_rt=24:00:00
 #$ -pe ib __nprocMain__
-#$ -l h_vmem=1G
+#$ -l h_vmem=2G
 
 . config.bash
 
@@ -17,6 +17,7 @@ export MP_TASK_AFFINITY=cpu
 
 # Copy a set file
 cp -p $WRFdir/run/CAMtr_volume_mixing_ratio.RCP4.5 .
+ln -sf CAMtr_volume_mixing_ratio.RCP4.5 CAMtr_volume_mixing_ratio
 
 # -----------------------------------------------------------------------------
 # 1) Meteo spinup
