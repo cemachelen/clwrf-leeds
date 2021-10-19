@@ -31,13 +31,19 @@
  auxinput5_inname                    = 'wrfchemi_d<domain>_<date>',          ! file name, anthropogenic
  auxinput6_inname                    = 'wrfbiochemi_d<domain>',              ! file name, biogenic
  auxinput7_inname                    = 'wrffirechemi_d<domain>_<date>',      ! file name, biomass burning
- auxinput5_interval_m                = 60,                                   ! time interval in mins, anthropogenic 
+ auxinput5_interval_m                = 60,                                   ! time interval in mins, anthropogenic
  auxinput6_interval_d                = 600,                                  ! time interval in days, biogenic
  auxinput7_interval_m                = 60, 60, 60,                           ! time interval in mins, biomass burning
  frames_per_auxinput5                = 1,                                    ! files per time interval, anthropogenic
  frames_per_auxinput7                = 1, 1, 1,                              ! files per time interval, biomass burning
  io_form_auxinput12                  = __ISRESTARTVALUE__,                   ! restart file type
  force_use_old_data                  = T,                                    ! allow WRFChem4 to run with data from WRFChem3
+ output_diagnostics                  = 1 ! max,min,Tmax, mean, std (T2,Q2,TSK,U10,V10,10mUV, RAINCV)
+ auxhist3_outname                    = wrfxtrm_d<domain>_<date> ! req for stats
+ io_form_auxhist3                    = 2                !  netcdf
+ auxhist3_interval                   = 1440, 1440, 1440 !  minutes between outputs (1440 gives daily max/min)
+ frames_per_auxhist3                 = 24               !  output times per file
+
  /
 
  &domains                                                                  ! domains - dimensions, nesting, parameters
@@ -61,14 +67,21 @@
  feedback                            = 1,                                    ! feedback from nest to its parent domain
  /
 
+ &diags
+ p_lev_diags                         = 1
+ num_press_levels                    = 3,
+ press_levels                        = 85000, 50000, 20000,
+/
+
  &physics                                                                  ! physics
- mp_physics                          = 10, 10,                               ! microphysics scheme, 10 = Morrison 2-moment scheme               
+ mp_physics                          = 10, 10,                               ! microphysics scheme, 10 = Morrison 2-moment scheme
  progn                               = 1, 1,                                 ! prognostic number density, switch to use mix-activate scheme
  ra_lw_physics                       = 4, 4,                                 ! longwave radiation scheme, 4 = RRTMG
  ra_sw_physics                       = 4, 4,                                 ! shortwave radiation scheme, 4 = RRTMG
  radt                                = 30, 30,                               ! minutes between radiation physics calls, recommended 1 minute per km of dx (e.g. 10 for 10 km grid); use the same value for all nests
  sf_sfclay_physics                   = 5, 5,                                 ! surface layer physics option, 5 = MYNN (Ravan's suggestion)
  sf_surface_physics                  = 2, 2,                                 ! land surface physics option, 2 = NOAH
+ sf_lake_physics                     =  1,     1,     1, ! Added in a lake model
  bl_pbl_physics                      = 5, 5,                                 ! boundary layer physics option, 5 = MYNN 2.5
  bldt                                = 0, 0,                                 ! minutes between boundary-layer physics calls, 0 = call every timestep
  cu_physics                          = 5, 0,                                 ! cumulus parameterization option, 5 = Grell 3D, 0 = off
@@ -77,6 +90,8 @@
  isfflx                              = 1,                                    ! heat and moisture fluxes from the surface for real-data cases and when a PBL is used
  ifsnow                              = 1,                                    ! snow-cover effects
  icloud                              = 1,                                    ! cloud effect to the optical depth in radiation
+ sst_skin                            =  1, ! calculate sst skin
+ sst_update                          =  1, ! must be ran in real first
  surface_input_source                = 1,                                    ! where landuse and soil category data come from, 1 = WPS
  num_soil_layers                     = 3,                                    ! number of soil levels or layers in WPS output
  sf_urban_physics                    = 1,                                    ! activate urban canopy model, 1 = single layer, 2 = multi layer

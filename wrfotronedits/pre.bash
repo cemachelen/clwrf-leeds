@@ -63,12 +63,17 @@ cp namelist.wps.prep namelist.wps
 msg "ungrib"
 ungrib.exe > ungrib.log
 
+msg "avg_tsfc"
+avg_tsfc.exe
+
 rm GRIBFILE*
 
 msg "geogrid"
 ${mpiCommandPre} geogrid.exe
 
 msg "metgrid"
+echo "generating intermediate files from ecmwf_coeffs"
+calc_ecmwf_p.exe
 ${mpiCommandPre} metgrid.exe
 
 rm FILE*

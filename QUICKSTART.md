@@ -6,7 +6,7 @@ To quickly run a prebuilt ClWRF executable a few modifications can be made to th
 2. `git clone git@github.com:wrfchem-leeds/WRFotron.git`
 3. `cp -rp WRFotron ClWRFotron` create a separate folder to work in
 4. `git clone git@github.com:cemachelen/clwrf-leeds.git` This a little repo of markdown files and useful template edit files
-5. `cp clwrf-leeds/wrfotronedits/config.bash clwrf-leeds/wrfotronedits/main.bash  ClWRFotron/` The edits made here are outlined in the file and in the wrfotronedits/README.md in the repo
+5. `cp clwrf-leeds/wrfotronedits/config.bash  ` The edits made here are outlined in the file and in the wrfotronedits/README.md in the repo
 4.  This method is linked to the [WRFotron Quickstart](https://wrfchem-leeds.github.io/WRFotron/)
 5. `cd ClWRFotron`
 6. `. /nobackup/cemac/cemac.sh` CEMAC have prebuilt a ClWRF executable
