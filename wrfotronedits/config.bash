@@ -5,8 +5,9 @@
 # code
 # ------------------------------------------------------------------------------
 
+module purge
 # Load in the compilers and openmpi and netcdf libaries and job sechulder
-module load intel/19.0.4 openmpi/3.1.4 netcdf/4.6.3 sge
+module load intel/19.0.4 openmpi/3.1.4 netcdf/4.6.3 sge licenses user
 ## Load in the version of WRF you want to use
 module load ClWRFchem/4.2
 # load in a bunch of tools require for pre and postprocessing
