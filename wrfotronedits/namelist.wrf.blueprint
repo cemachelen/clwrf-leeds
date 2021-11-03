@@ -23,6 +23,10 @@
  io_form_boundary                    = 2                                     ! NetCDF
  debug_level                         = 400,                                  ! debugging level
  iofields_filename                   = "iofields", "iofields", "iofields",   ! an option to request particular variables to appear in output
+ auxinput4_inname                    = "wrflowinp_d01",
+ auxinput4_interval                  = 360, 360, 360, 360, 360,
+ io_form_auxinput4                   = 2,
+ auxinput4_end_h                     = 12,
 ! CHEM
  io_form_auxinput5                   = 2,                                    ! file type as NetCDF, anthropogenic
  io_form_auxinput6                   = 2,                                    ! file type as NetCDF, biogenic
@@ -67,11 +71,6 @@
  feedback                            = 1,                                    ! feedback from nest to its parent domain
  /
 
- &diags
- p_lev_diags                         = 1
- num_press_levels                    = 3,
- press_levels                        = 85000, 50000, 20000,
-/
 
  &physics                                                                  ! physics
  mp_physics                          = 10, 10,                               ! microphysics scheme, 10 = Morrison 2-moment scheme
@@ -105,25 +104,6 @@
  /
 
  &fdda                                                                     ! FDDA  - options for grid, obs and spectral nudging
- grid_fdda                           = __GRIDFDDA__, 0,                      ! grid nudging
- gfdda_inname                        = "wrffdda_d<domain>",                  ! fdda filenames produced
- gfdda_end_h                         = 10000, 0,                             ! time (hr) to stop nudging after the start of the forecast
- gfdda_interval_m                    = 360, 0,                               ! time interval (in mins) between analysis times
- if_no_pbl_nudging_uv                = 1, 0,                                 ! nudging of u and v in the PBL, 0 = yes, 1 = no
- if_no_pbl_nudging_t                 = 1, 0,                                 ! nudging of t in the PBL, 0 = yes, 1 = no
- if_no_pbl_nudging_q                 = 1, 0,                                 ! nudging of q in the PBL, 0 = yes, 1 = no
- if_zfac_uv                          = 0, 0,                                 ! nudge u and v in all layers, 0 = yes, 1 = limit to k_zfac_uv layers
- k_zfac_uv                           = 2,                                    ! model level below which nudging is switched off for u and v
- if_zfac_t                           = 0, 0,                                 ! nudge t in all layers, 0 = yes, 1 = limit to k_zfac_t layers
- k_zfac_t                            = 2,                                    ! model level below which nudging is switched off for t
- if_zfac_q                           = 0, 0,                                 ! nudge q in all layers, 0 = yes, 1 = limit to k_zfac_q layers
- k_zfac_q                            = 2,                                    ! model level below which nudging is switched off for q
- guv                                 = 0.0006, 0.0006,                       ! nudging coefficient for u and v (s-1)
- gt                                  = 0.0006, 0.0006,                       ! nudging coefficient for t (s-1)
- gq                                  = 0.0006, 0.0006,                       ! nudging coefficient for q (s-1)
- if_ramping                          = 0,                                    ! 0 = nudging ends as a step function, 1 = ramping nudging down at the end of the period
- dtramp_min                          = 360,                                  ! time (min) for ramping function
- io_form_gfdda                       = 2,                                    ! 2 = NetCDF
  /
 
  &dynamics                                                                 ! dynamics - diffusion, damping options, advection options
